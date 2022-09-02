@@ -5,6 +5,8 @@ Playing with PyO3 to hopefully GPU accelerate matmul ops from Python in Rust.
 - [PyO3](https://github.com/PyO3/pyo3), Rust bindings for Python.
 - [Maturin](https://github.com/PyO3/maturin), build and install the Rust code as Python module locally.
 - [Vulkano](https://docs.rs/vulkano/0.12.0/vulkano/), Rust wrapper for Vulkan API (GPU).
+- [Arrow](https://docs.rs/arrow/latest/arrow/), native Rust implementation of Apache Arrow.
+- [PyArrow](https://arrow.apache.org/docs/python/index.html), Python module for Apache Arrow in-memory data.
 
 # How to start developing?..
 ```
