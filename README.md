@@ -7,6 +7,7 @@ Playing with PyO3 to hopefully GPU accelerate matmul ops from Python in Rust.
 - [Vulkano](https://docs.rs/vulkano/0.12.0/vulkano/), Rust wrapper for Vulkan API (GPU).
 - [Arrow](https://docs.rs/arrow/latest/arrow/), native Rust implementation of Apache Arrow.
 - [PyArrow](https://arrow.apache.org/docs/python/index.html), Python module for Apache Arrow in-memory data.
+- [OpenCL3](https://docs.rs/opencl3/latest/opencl3/), A Rust implementation of the Khronos OpenCL API (GPU/Parallelization).
 
 # How to start developing?..
 ```
@@ -63,3 +64,4 @@ The way this should work is that the PyArrow module creates an in-memory array o
 
 # License
 All code that I have written is under an Apache-2.0 styled license, see [LICENSE](https://github.com/willeagren/rustpy_gpu/blob/main/LICENSE) for specific information.
+
