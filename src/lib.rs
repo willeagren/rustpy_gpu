@@ -1,23 +1,35 @@
 #[allow(unused_imports)]
-use pyo3::prelude::*;
-use numpy::{PyArrayDyn, dot};
+use numpy::ndarray::{ArrayD, ArrayViewD};
+use numpy::{IntoPyArray, PyArrayDyn, PyReadonlyArrayDyn};
+use pyo3::{pymodule, types::PyModule, PyResult, Python};
 
-/// Formats the sum of two numbers as string.
-#[pyfunction]
-fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
-    Ok((a + b).to_string())
-}
-
-#[pyfunction]
-fn multiply(a: usize, b: usize) -> PyResult<usize> {
-    Ok(a*b)
-}
-
-
-/// A Python module implemented in Rust.
 #[pymodule]
-fn rustpy_gpu(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(sum_as_string, m)?)?;
-    m.add_function(wrap_pyfunction!(multiply, m)?)?;
+fn rustpy_gpu(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
+
+    // double the values of the ndarray
+    fn double(arr: ArrayViewD<'_, f32>) -> ArrayD<f32> {
+        2.0 * &arr
+    }
+
+    #[pyfn(m)]
+    #[pyo3(name="double")]
+    fn double_py<'py>(py: Python<'py>, arr: PyReadonlyArrayDyn<'_, f32>) -> &'py PyArrayDyn<f32> {
+        let arr = arr.as_array();
+        double(arr).into_pyarray(py)
+    }
+
+    // bit-wise multiplication of two ndarray's
+    fn multiply(u: ArrayViewD<'_, f32>, v: ArrayViewD<'_, f32>) -> ArrayD<f32> {
+       &u * &v 
+    }
+
+    #[pyfn(m)]
+    #[pyo3(name="multiply")]
+    fn multiply_py<'py>(py: Python<'py>, u: PyReadonlyArrayDyn<'_, f32>, v: PyReadonlyArrayDyn<'_, f32>) -> &'py PyArrayDyn<f32> {
+        let u = u.as_array();
+        let v = v.as_array();
+        multiply(u, v).into_pyarray(py)
+    }
+
     Ok(())
 }
