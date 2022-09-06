@@ -1,16 +1,17 @@
 [package]
-name = "rustpy_gpu"
+name = "rustarrow"
 version = "0.1.0"
 authors = ["Wilhelm Ågren <wilhelmagren98@gmail.com>"]
 edition = "2021"
 
 [lib]
-name = "rustpy_gpu"
+name = "rustarrow"
 crate-type = ["cdylib"]
 
 [dependencies.pyo3]
 version = "0.17"
 features = ["extension-module"]
 
-[dependencies.numpy]
-version = "0.17"
+[dependencies]
+arrow = "22.0.0"
+libc = "0.2.132"
